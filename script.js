@@ -1,4 +1,4 @@
-document.getElementById('weatherForm').addEventListener('submit', async function (e) {
+document.getElementById('weatherForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const location = document.getElementById('locationInput').value.trim();
@@ -7,8 +7,9 @@ document.getElementById('weatherForm').addEventListener('submit', async function
 
   try {
     const response = await fetch(apiUrl);
+
     if (!response.ok) {
-      throw new Error("Location not found");
+      throw new Error("City not found");
     }
 
     const data = await response.json();
@@ -16,11 +17,11 @@ document.getElementById('weatherForm').addEventListener('submit', async function
     document.getElementById('cityName').textContent = `${data.location.name}, ${data.location.country}`;
     document.getElementById('temperature').textContent = data.current.temp_c;
     document.getElementById('condition').textContent = data.current.condition.text;
-    document.getElementById('weatherIcon').src = "https:" + data.current.condition.icon;
+    document.getElementById('icon').src = "https:" + data.current.condition.icon;
 
-    document.getElementById('weatherResult').classList.remove('hidden');
+    document.getElementById('result').classList.remove('hidden');
   } catch (error) {
     alert("Error: " + error.message);
-    document.getElementById('weatherResult').classList.add('hidden');
+    document.getElementById('result').classList.add('hidden');
   }
 });
